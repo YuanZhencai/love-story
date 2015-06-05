@@ -10,7 +10,9 @@ libraryDependencies ++= Seq(
 	javaJdbc , 
 	javaEbean , 
 	cache , 
-	javaWs , 
+	javaWs ,
+	"com.google.inject" % "guice" % "3.0",
+	"javax.inject" % "javax.inject" % "1",
 	"com.typesafe.play" %% "play-mailer" % "2.4.1"
 )
 

@@ -1,16 +1,14 @@
 package services;
 
 import play.libs.mailer.Email;
-import play.libs.mailer.MailerClient;
+import play.libs.mailer.MailerPlugin;
 
 public class MailService {
 
-	@Inject ]
-	private MailerClient mailerClient;
 
 	public boolean sendEmail (Email email) {
 		if (email != null) {
-			mailerClient.send(Email)
+			MailerPlugin.send(email);
 			return true;
 		} else {
 			return false;
