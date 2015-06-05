@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Our Love Story</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+        @font-face {
+            font-family: digit;
+        }
+    </style>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/default.css")">
+    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/garden.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/functions.js")" type="text/javascript"></script>
+</head>
+<body>
+<div id="mainDiv">
+    <div id="content">
+        <div id="code">
+            <span class="comments">/**</span><br/>
+            <span class="space"/><span class="comments">* Today is the special day.</span><br/>
+            <span class="space"/><span class="comments">* so I write some code to show my love to you.</span><br/>
+            <span class="space"/><span class="comments">*/</span><br/>
+            Boy i = <span class="keyword">new</span> Boy(<span class="string">"Yuan Zhencai"</span>);<br/>
+            Girl u = <span class="keyword">new</span> Girl(<span class="string">"Tang binyan"</span>);<br/>
+            <span class="comments">// I meet you in the May 31, 2015. </span><br/>
+            <span class="comments">// I want to tell you I love you. </span><br/> 
+            i.love(u);<br/>
+            <span class="comments">// but..., I think ti is not better to tell you I love you when the first date.</span><br/>
+            <span class="comments">// so I say something happy with you.</span><br/>
+            u.sayOtherthing();<br/>
+            <span class="comments">// Since then, I found you say little about yourself and ask you for the reason.</span><br/>
+            <span class="keyword">var</span> reason=i.ask(u);<br/>
+            <span class="comments">// you say you are a shy girl.</span><br/>
+            <span class="comments">// and we were not understand enough for each other .</span><br/>
+            <span class="comments">// so you say that we can say anything like best firend after a period of time .</span><br/>
+            <span class="comments">// I want to take care of u .</span><br/>
+            i.takeCareOf(u);<br/>
+            <span class="comments">// So I keep waiting and I have confidence that you will.</span><br/>
+            <span class="keyword">boolean</span> isAccept = <span class="keyword">false</span>;<br/>
+            <span class="keyword">while</span> (isAccept) {<br/>
+            <span class="placeholder"/>i.waitFor(u);<br/>
+            <span class="placeholder"/><span class="comments">// I think it is an important decision</span><br/>
+            <span class="placeholder"/><span class="comments">// and you should forgot the unhappy things that happended before.</span><br/>
+            <span class="placeholder"/>isAccept = u.thinkOver();<br/>
+            }<br/>
+            <span class="comments">// After a please sound of accept, We will live happily ever after.</span><br/>
+            u.accept(i);<br/>
+            i.liveHappilyWith(u);<br/>
+        </div>
+        <div id="loveHeart">
+            <canvas id="garden"></canvas>
+            <div id="words">
+                <div id="messages">
+                    Tang binyan, I will have fallen in love with you for
+                    <div id="elapseClock" style="display:none"></div>
+                    <a href='#' id="accept">click me if accept me</a>
+                </div>
+                <div id="loveu">
+                    Love u forever and ever.<br/>
+                    <div class="signature">- Yuan Zhencai</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="copyright">
+         <a href="#zhencai.yuan@sunlights.cc">袁振才</a><br/>
+    </div>
+</div>
+<script type="text/javascript">
+    var offsetX = $("#loveHeart").width() / 2;
+    var offsetY = $("#loveHeart").height() / 2 - 55;
+    if (!document.createElement('canvas').getContext) {
+        var msg = document.createElement("div");
+        msg.id = "errorMsg";
+        msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+";
+        document.body.appendChild(msg);
+        $("#code").css("display", "none")
+        $("#copyright").css("position", "absolute");
+        $("#copyright").css("bottom", "10px");
+        document.execCommand("stop");
+    } else {
+        setTimeout(function () {
+            adjustWordsPosition();
+            startHeartAnimation();
+        }, 10000);
+        $("#accept").click(function () {
+            $(this).hide();
+            $("#elapseClock").show();
+            var together = new Date();
+            timeElapse(together);
+            setInterval(function () {
+                timeElapse(together);
+            }, 500);
+        })
+        adjustCodePosition();
+        $("#code").typewriter();
+    }
+</script>
+</body>
+</html>
