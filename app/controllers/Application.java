@@ -5,14 +5,19 @@ import play.libs.Json;
 import play.libs.mailer.Email;
 import play.mvc.Controller;
 import play.mvc.Result;
+import services.LocationService;
 import services.MailService;
+import util.EmailUtils;
 import views.html.index;
 import views.html.loveStory;
+import vo.Location;
 
 public class Application extends Controller {
 
     @Inject
     private MailService mailService;
+    @Inject
+    private LocationService locationService;
 
     public static Result index() {
         return ok(index.render("Your new application is ready."));
@@ -23,6 +28,7 @@ public class Application extends Controller {
     }
 
     public Result accept() {
+        Location location = locationService.findLocationByIp(request().host());
         Email email = new Email();
 
         email.setSubject("Yuan's love story");
@@ -34,7 +40,7 @@ public class Application extends Controller {
         //email.addAttachment("data.txt", "data".getBytes(), "text/plain", "Simple data", EmailAttachment.INLINE);
         // sends text, HTML or both...
         //email.setBodyText("A text message");
-        email.setBodyHtml("<html><body><p>Tang binyan accept Yuan zhencai to be the girl firend.</p></body></html>");
+        email.setBodyHtml(EmailUtils.template(location));
         mailService.sendEmail(email);
         return ok(Json.toJson(email));
     }
