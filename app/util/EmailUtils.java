@@ -13,8 +13,8 @@ import java.text.MessageFormat;
 public class EmailUtils {
     public static String template(Location location) {
         String date = DateFormatUtils.format(location.getDate(), String.valueOf("EEE, MMM d, hh:mm aaa"));
-            AddressDetail detail = location.getContent().getAddressDetail();
-            String htmlTemplate = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
+        AddressDetail detail = location.getContent().getAddressDetail();
+        String htmlTemplate = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
                 "<head>\n" +
                 "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n" +
                 "<title>Yuan's Love Story</title>\n" +
@@ -40,7 +40,7 @@ public class EmailUtils {
                 "              <div><br>\n" +
                 "              \n" +
                 "\t\t\t\tLocation: " + MessageFormat.format("{0} {1}", detail.getProvince(), detail.getCity()) + "<br>\n" +
-                "\t\t\t\tIp: 127.0.0.1<br>\n" +
+                "\t\t\t\tIp: " + location.getIp() + "<br>\n" +
                 "<br>\n" +
                 "              </div></td>\n" +
                 "              <td width=\"210\" align=\"center\" valign=\"top\"></td>\n" +

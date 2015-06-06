@@ -35,6 +35,7 @@ public class Location {
     private String address;
     private String message;
     private Content content = new Content();
+    private String ip;
     @JsonIgnore
     private Date date = new Date();
 
@@ -76,5 +77,13 @@ public class Location {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

@@ -51,7 +51,9 @@ public class BaiduIpLocationService {
             if (entity != null) {
                 String result = EntityUtils.toString(entity);
                 JsonNode parse = Json.parse(result);
-                return Json.fromJson(parse, Location.class);
+                Location location = Json.fromJson(parse, Location.class);
+                location.setIp(ip);
+                return location;
             }
         } catch (Exception e) {
             e.printStackTrace();
