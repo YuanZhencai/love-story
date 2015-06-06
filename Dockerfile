@@ -1,22 +1,17 @@
-#FROM        ubuntu:14.04
-FROM        java:7
+FROM centos:centos6
 MAINTAINER  Yuan Zhencai <515265763@qq.com>
 ENV         ACTIVATOR_VERSION 1.2.10
 ENV         DEBIAN_FRONTEND noninteractive
-# INSTALL OS DEPENDENCIES
-#RUN         apt-get update; apt-get install -y software-properties-common unzip
-# INSTALL JAVA 7
-#RUN         echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-#            echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections && \
-#            add-apt-repository -y ppa:webupd8team/java && \
-#            apt-get update && \
-#            apt-get install -y oracle-java7-installer
+# INSTALL JDK7
+RUN yum update -y && yum install -y unzip
+RUN yum install -y wget && wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u11-b12/jdk-8u11-linux-x64.rpm
+RUN rpm -ivh jdk-8u11-linux-x64.rpm && rm jdk-8u11-linux-x64.rpm
+
 # INSTALL TYPESAFE ACTIVATOR
-RUN         cd /tmp && \
-            wget http://downloads.typesafe.com/typesafe-activator/$ACTIVATOR_VERSION/typesafe-activator-$ACTIVATOR_VERSION.zip && \
-            unzip typesafe-activator-$ACTIVATOR_VERSION.zip -d /usr/local && \
-            mv /usr/local/activator-$ACTIVATOR_VERSION /usr/local/activator && \
-            rm typesafe-activator-$ACTIVATOR_VERSION.zip
+RUN curl -O http://downloads.typesafe.com/typesafe-activator/$ACTIVATOR_VERSION/typesafe-activator-$ACTIVATOR_VERSION.zip 
+RUN unzip typesafe-activator-$ACTIVATOR_VERSION.zip -d / && rm typesafe-activator-$ACTIVATOR_VERSION.zip && chmod a+x /activator-$ACTIVATOR_VERSION/activator
+ENV PATH $PATH:/activator-$ACTIVATOR_VERSION
+
 # COMMIT PROJECT FILES
 ADD         app /root/app
 ADD         test /root/test
@@ -26,7 +21,7 @@ ADD         build.sbt /root/
 ADD         project/plugins.sbt /root/project/
 ADD         project/build.properties /root/project/
 # TEST AND BUILD THE PROJECT -- FAILURE WILL HALT IMAGE CREATION
-RUN         cd /root; /usr/local/activator/activator test stage
+RUN         cd /root; activator test stage
 RUN         rm /root/target/universal/stage/bin/*.bat
 # TESTS PASSED -- CONFIGURE IMAGE
 WORKDIR     /root
