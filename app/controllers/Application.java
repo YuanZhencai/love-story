@@ -20,7 +20,7 @@ public class Application extends Controller {
     private LocationService locationService;
 
     public static Result index() {
-        return ok(index.render("Your new application is ready."));
+        return ok(loveStory.render());
     }
 
     public static Result loveStory() {
@@ -28,7 +28,7 @@ public class Application extends Controller {
     }
 
     public Result accept() {
-        Location location = locationService.findLocationByIp(request().host());
+        Location location = locationService.findLocationByIp(request().remoteAddress());
         Email email = new Email();
 
         email.setSubject("Yuan's love story");

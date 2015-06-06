@@ -8,8 +8,12 @@ import vo.Location;
 public class LocationService {
 
     public Location findLocationByIp(String ip)  {
-        Location location = new Location(ip);
-        return location;
+        try {
+            return new BaiduMapService().findLocationByIp(ip);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Location();
     }
 
 }

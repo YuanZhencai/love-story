@@ -2,6 +2,7 @@ package util;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import vo.AddressDetail;
 import vo.Location;
 
 import java.text.MessageFormat;
@@ -12,7 +13,8 @@ import java.text.MessageFormat;
 public class EmailUtils {
     public static String template(Location location) {
         String date = DateFormatUtils.format(location.getDate(), String.valueOf("EEE, MMM d, hh:mm aaa"));
-        String htmlTemplate = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
+            AddressDetail detail = location.getContent().getAddressDetail();
+            String htmlTemplate = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
                 "<head>\n" +
                 "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n" +
                 "<title>Yuan's Love Story</title>\n" +
@@ -37,7 +39,7 @@ public class EmailUtils {
                 "              \n" +
                 "              <div><br>\n" +
                 "              \n" +
-                "\t\t\t\tLocation: " + MessageFormat.format("{0} {1} {2}", location.getCountry(), location.getProvince(), location.getCity()) + "<br>\n" +
+                "\t\t\t\tLocation: " + MessageFormat.format("{0} {1}", detail.getProvince(), detail.getCity()) + "<br>\n" +
                 "\t\t\t\tIp: 127.0.0.1<br>\n" +
                 "<br>\n" +
                 "              </div></td>\n" +

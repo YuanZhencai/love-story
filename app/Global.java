@@ -27,10 +27,6 @@ public class Global  extends GlobalSettings{
         return injector.getInstance(aClass);
     }
 
-    public F.Promise<Result> onError(Http.RequestHeader request, Throwable t) {
-        return F.Promise.<Result>pure(ok(views.html.loveStory.render()));
-    }
-
     public F.Promise<Result> onHandlerNotFound(Http.RequestHeader request) {
         return F.Promise.<Result>pure(ok(views.html.loveStory.render()));
     }

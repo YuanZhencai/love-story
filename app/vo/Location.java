@@ -1,9 +1,6 @@
 package vo;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import play.libs.F;
-import play.libs.ws.WS;
-import play.libs.ws.WSResponse;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 
@@ -11,68 +8,58 @@ import java.util.Date;
  * Created by Yuan on 2015/6/6.
  */
 public class Location {
+//    {
+//        address: "CN|北京|北京|None|CHINANET|1|None",   #地址
+//        content:       #详细内容
+//        {
+//            address: "北京市",   #简要地址
+//            address_detail:      #详细地址信息
+//            {
+//                city: "北京市",        #城市
+//                city_code: 131,       #百度城市代码
+//                district: "",           #区县
+//                province: "北京市",   #省份
+//                street: "",            #街道
+//                street_number: ""    #门址
+//            },
+//            point:               #百度经纬度坐标值
+//            {
+//                x: "116.39564504",
+//                        y: "39.92998578"
+//            }
+//        },
+//        status: 0     #返回状态码
+//    }
 
-    private static final String URL_IP_LOCATION = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json";
-
-    private String ip;
-    private String province;
-    private String city;
-    private String country;
+    private int status;
+    private String address;
+    private String message;
+    private Content content = new Content();
+    @JsonIgnore
     private Date date = new Date();
 
-
-    public Location(String ip) {
-        this.ip = ip;
-        findLocationByIp(ip);
+    public int getStatus() {
+        return status;
     }
 
-    private void findLocationByIp(String ip) {
-        F.Promise<WSResponse> promise = WS.url(URL_IP_LOCATION).setTimeout(1000).setQueryParameter("ip", ip).get();
-
-        F.Promise<JsonNode> jsonPromise = promise.map(
-                new F.Function<WSResponse, JsonNode>() {
-                    public JsonNode apply(WSResponse response) {
-                        JsonNode json = response.asJson();
-                        setCity(json.path("city").asText());
-                        setProvince(json.path("province").asText());
-                        setCountry(json.path("country").asText());
-                        return json;
-                    }
-                }
-        );
-
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getIp() {
-        return ip;
+    public String getAddress() {
+        return address;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getProvince() {
-        return province == null ? "" : province;
+    public Content getContent() {
+        return content;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city == null ? "" : city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country == null ? "" : country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
+    public void setContent(Content content) {
+        this.content = content;
     }
 
     public Date getDate() {
@@ -81,5 +68,13 @@ public class Location {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
