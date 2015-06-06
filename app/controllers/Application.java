@@ -20,7 +20,7 @@ public class Application extends Controller {
     private LocationService locationService;
 
     public static Result index() {
-        return ok(loveStory.render());
+        return ok(index.render("Your new application is ready."));
     }
 
     public static Result loveStory() {
