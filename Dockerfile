@@ -1,15 +1,16 @@
-FROM        ubuntu:14.04
+#FROM        ubuntu:14.04
+FROM        java:7
 MAINTAINER  Yuan Zhencai <515265763@qq.com>
 ENV         ACTIVATOR_VERSION 1.2.10
 ENV         DEBIAN_FRONTEND noninteractive
 # INSTALL OS DEPENDENCIES
-RUN         apt-get update; apt-get install -y software-properties-common unzip
+#RUN         apt-get update; apt-get install -y software-properties-common unzip
 # INSTALL JAVA 7
-RUN         echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-            echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections && \
-            add-apt-repository -y ppa:webupd8team/java && \
-            apt-get update && \
-            apt-get install -y oracle-java7-installer
+#RUN         echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
+#            echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections && \
+#            add-apt-repository -y ppa:webupd8team/java && \
+#            apt-get update && \
+#            apt-get install -y oracle-java7-installer
 # INSTALL TYPESAFE ACTIVATOR
 RUN         cd /tmp && \
             wget http://downloads.typesafe.com/typesafe-activator/$ACTIVATOR_VERSION/typesafe-activator-$ACTIVATOR_VERSION.zip && \
